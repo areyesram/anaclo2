@@ -56,7 +56,6 @@ namespace anaclo
             components = new Container();
             SuspendLayout();
 
-            BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(200, 200);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
