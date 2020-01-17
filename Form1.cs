@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace anaclo
 {
-    public sealed partial class Form1 : Form
+    public sealed class Form1 : Form
     {
         private IContainer components;
         private Timer _timer;
@@ -31,7 +31,7 @@ namespace anaclo
         {
             g.SmoothingMode = SmoothingMode.HighQuality;
 
-            g.FillEllipse(Brushes.Gainsboro, this.ClientRectangle);
+            g.FillEllipse(Brushes.Gainsboro, ClientRectangle);
 
             for (var m = 0; m < 60; m++)
                 g.DrawLine(_pens["t"], GetCoords(m, 60, m % 5 == 0 ? 0.9 : 0.98), GetCoords(m, 60));
@@ -56,17 +56,18 @@ namespace anaclo
             components = new Container();
             SuspendLayout();
 
-            _timer = new Timer(components) { Enabled = true, Interval = 1000 };
-            _timer.Tick += (sender, e) => Invalidate();
-
             BackColor = SystemColors.ControlDarkDark;
             ClientSize = new Size(200, 200);
             DoubleBuffered = true;
             FormBorderStyle = FormBorderStyle.None;
+
+            _timer = new Timer(components) { Enabled = true, Interval = 1000 };
+            _timer.Tick += (sender, e) => Invalidate();
+
             Load += (o, e) =>
             {
-                this._radius = ClientSize.Width / 2;
-                this._origin = new Point(_radius, _radius);
+                _radius = ClientSize.Width / 2;
+                _origin = new Point(_radius, _radius);
                 _pens.Add("t", Pens.Gray);
                 _pens.Add("s", Pens.Red);
                 _pens.Add("m", new Pen(Brushes.Black, 3));
